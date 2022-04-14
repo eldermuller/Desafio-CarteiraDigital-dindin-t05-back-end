@@ -82,7 +82,7 @@ const detailTransaction = async (req, res) => {
             return res.status(404).json({ message: "Transação não encontrada" });
         }
 
-        return res.status(200).json(responseTransaction.rows);
+        return res.status(200).json(responseTransaction.rows[0]);
     } catch (error) {
         return res.status(400).json({ message: error.message });
     }
