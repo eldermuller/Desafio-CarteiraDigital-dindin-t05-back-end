@@ -10,7 +10,7 @@ const registerUser = async (req, res) => {
 
         if (numberUsers > 0) {
             return res.status(400).json({ message: "Já existe usuário cadastrado com o e-mail informado." });
-        }
+        };
 
         const encryptedPassword = await bcrypt.hash(password, 10);
 
@@ -28,7 +28,7 @@ const registerUser = async (req, res) => {
         return res.status(200).json(user);
     } catch (error) {
         return res.status(400).json({ message: error.message });
-    }
+    };
 };
 
 const detailUser = async (req, res) => {
@@ -42,8 +42,8 @@ const detailUser = async (req, res) => {
         return res.status(200).json(datashere);
     } catch (error) {
         return res.status(400).json({ message: error.message });
-    }
-}
+    };
+};
 
 const updateUser = async (req, res) => {
     const { name, email, password } = req.body;
@@ -71,13 +71,13 @@ const updateUser = async (req, res) => {
 
         if (newUser.rows === 0) {
             return res.status(400).json({ message: "Não foi possível atualizar o usuário" });
-        }
+        };
 
         return res.status(204).json({});
     } catch (error) {
         return res.status(400).json({ message: error.message });
-    }
-}
+    };
+};
 
 module.exports = {
     registerUser,

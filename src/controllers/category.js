@@ -10,7 +10,7 @@ const categoryList = async (req, res) => {
         return res.status(200).json(categories.rows);
     } catch (error) {
         return res.status(400).json({ message: error.message });
-    }
-}
+    };
+};
 
 module.exports = categoryList;

@@ -54,7 +54,7 @@ const listTransactions = async (req, res) => {
         return res.status(200).json(transactionList.rows);
     } catch (error) {
         return res.status(400).json({ message: error.message });
-    }
+    };
 };
 
 const detailTransaction = async (req, res) => {
@@ -80,13 +80,13 @@ const detailTransaction = async (req, res) => {
 
         if (responseTransaction.rowCount === 0) {
             return res.status(404).json({ message: "Transação não encontrada" });
-        }
+        };
 
         return res.status(200).json(responseTransaction.rows[0]);
     } catch (error) {
         return res.status(400).json({ message: error.message });
-    }
-}
+    };
+};
 
 const registerTransaction = async (req, res) => {
     const { user } = req;
@@ -97,7 +97,7 @@ const registerTransaction = async (req, res) => {
 
         if (checkCategory.rowCount === 0) {
             return res.status(404).json({ message: "A categoria informada não existe." });
-        }
+        };
 
         const queryTransactionRegister = `insert into transacoes 
         (descricao, valor, data, categoria_id, usuario_id, tipo) 
@@ -107,7 +107,7 @@ const registerTransaction = async (req, res) => {
 
         if (transactionRegister.rowCount === 0) {
             return res.status(400).json({ message: "Não foi possível registrar a transação." });
-        }
+        };
 
         const allTransaction = await connection.query('select max(id) from transacoes where usuario_id = $1', [user.id]);
 
@@ -130,7 +130,7 @@ const registerTransaction = async (req, res) => {
         return res.status(201).json(responseTransaction.rows);
     } catch (error) {
         return res.status(400).json({ message: error.message });
-    }
+    };
 };
 
 const updateTransaction = async (req, res) => {
@@ -189,20 +189,18 @@ const deleteTransaction = async (req, res) => {
 
         if (transactionDelete.rowCount === 0) {
             return res.status(400).json({ message: "Não foi possível deletar a transação solictada" });
-        }
+        };
 
         return res.status(204).json({});
     } catch (error) {
         return res.status(400).json({ message: error.message });
-    }
-
+    };
 };
 
 const transactionStatement = async (req, res) => {
     const { user } = req;
 
     try {
-
         const queryStatementTransaction = 'select sum(valor), transacoes.tipo from transacoes where usuario_id = $1 group by transacoes.tipo';
         const statementTransaction = await connection.query(queryStatementTransaction, [user.id]);
 
@@ -218,7 +216,7 @@ const transactionStatement = async (req, res) => {
         return res.status(200).json(returnObject);
     } catch (error) {
         return res.status(400).json({ message: error.message });
-    }
+    };
 };
 
 module.exports = {
@@ -228,4 +226,4 @@ module.exports = {
     updateTransaction,
     deleteTransaction,
     transactionStatement
-}
+};
